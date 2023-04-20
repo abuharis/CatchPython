@@ -1,3 +1,5 @@
+# Reference: https://betterprogramming.pub/understand-5-scopes-of-pytest-fixtures-1b607b5c19ed
+
 @pytest.fixture(scope="session")
 scope=session --> used with static return values only run once
 
