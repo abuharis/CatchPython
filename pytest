@@ -1,0 +1,53 @@
+@pytest.fixture(scope="session")
+scope=session --> used with static return values only run once
+
+@pytest.fixture(scope="function")
+scope=functions --> used with dynamic values when new return value is generated for every function execution
+
+@pytest.fixture(scope="module")
+scope=module --> rerurned values for inter module execution
+
+
+@pytest.fixture(scope="class")
+
+
+https://betterprogramming.pub/understand-5-scopes-of-pytest-fixtures-1b607b5c19ed
+
+/*conftest.py
+With scope function, class and module, it makes sense to put fixtures in the same file as tests. 
+But with scope session, there is a better place to put these fixtures. 
+This is the conftest.py file, a local per-directory plugin of Pytest. Pytest will make the fixtures in conftest.py available to all the tests within the same directory. 
+The example below is extended from the first example.
+*/
+
+/*
+In conftest.py, we have the fixture read_config with scope session. 
+This fixture is used by four test functions in two test files. 
+As fixtures in conftest.py are available to the whole directory, we don’t need to explicitly import those fixtures in the test files, Pytest will do it for us.
+*/
+
+# test/conftest.py
+@pytest.fixture(scope="session")
+def read_config():
+    with open("app.json") as f:
+        config = json.load(f)
+        logging.info("Read config")
+    return config
+
+# test/test_code1.py
+def test1(read_config):
+    logging.info("Test function 1")
+    assert read_config == {}
+
+def test2(read_config):
+    logging.info("Test function 2")
+    assert read_config == {}
+
+# test/test_code2.py
+def test3(read_config):
+    logging.info("Test function 3")
+    assert read_config == {}
+
+def test4(read_config):
+    logging.info("Test function 4")
+    assert read_config == {}
