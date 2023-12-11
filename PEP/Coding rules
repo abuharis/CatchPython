@@ -1,0 +1,9 @@
+#Mention the data type of parameters.
+variable1: int = 2
+var: string = "CatchPython"
+
+
+def coding_rules(value: list[int]) -> list:
+    execute
+
+https://peps.python.org/pep-0008/
